@@ -79,6 +79,8 @@ networks:
       config:
         - subnet: 10.5.0.0/16
 
+---
+
 ### Задание 4
 
 `Создана конфигурация `docker-compose` для Pushgateway с именем контейнера `LugininaV-netology-pushgateway`. Обеспечен внешний доступ к порту `9091`.`
@@ -111,3 +113,8 @@ networks:
     ipam:
       config:
         - subnet: 10.5.0.0/16
+
+---
+
+### Задание 5
+
