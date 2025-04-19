@@ -46,25 +46,39 @@ networks:
 
 ### Задание 3
 
-`Приведите ответ в свободной форме........`
+`Создана конфигурация `docker-compose` для Prometheus с именем контейнера `LugininaV-netology-prometheus`. Добавлены тома для данных (`prometheus-data`) и конфигурации (`prometheus.yml`), обеспечен внешний доступ к порту `9090`.`
 
-1. `Заполните здесь этапы выполнения, если требуется ....`
-2. `Заполните здесь этапы выполнения, если требуется ....`
-3. `Заполните здесь этапы выполнения, если требуется ....`
-4. `Заполните здесь этапы выполнения, если требуется ....`
-5. `Заполните здесь этапы выполнения, если требуется ....`
-6. 
 
-```
-Поле для вставки кода...
-....
-....
-....
-....
-```
+```yaml
+global:
+  scrape_interval: 15s
+scrape_configs:
+  - job_name: 'prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['localhost:9090']
 
-`При необходимости прикрепитe сюда скриншоты
-![Название скриншота](ссылка на скриншот)`
+```yaml
+version: '3.8'
+services:
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: LugininaV-netology-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - prometheus-data:/prometheus
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - LugininaV-my-netology-hw
+volumes:
+  prometheus-data:
+networks:
+  LugininaV-my-netology-hw:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.5.0.0/16
 
 ### Задание 4
 
