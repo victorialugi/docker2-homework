@@ -41,7 +41,6 @@ networks:
       config:
         - subnet: 10.5.0.0/16
 
-
 ---
 
 ### Задание 3
@@ -82,22 +81,33 @@ networks:
 
 ### Задание 4
 
-`Приведите ответ в свободной форме........`
+`Создана конфигурация `docker-compose` для Pushgateway с именем контейнера `LugininaV-netology-pushgateway`. Обеспечен внешний доступ к порту `9091`.`
 
-1. `Заполните здесь этапы выполнения, если требуется ....`
-2. `Заполните здесь этапы выполнения, если требуется ....`
-3. `Заполните здесь этапы выполнения, если требуется ....`
-4. `Заполните здесь этапы выполнения, если требуется ....`
-5. `Заполните здесь этапы выполнения, если требуется ....`
-6. 
-
-```
-Поле для вставки кода...
-....
-....
-....
-....
-```
-
-`При необходимости прикрепитe сюда скриншоты
-![Название скриншота](ссылка на скриншот)`
+```yaml
+version: '3.8'
+services:
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: LugininaV-netology-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - prometheus-data:/prometheus
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - LugininaV-my-netology-hw
+  pushgateway:
+    image: prom/pushgateway:latest
+    container_name: LugininaV-netology-pushgateway
+    ports:
+      - "9091:9091"
+    networks:
+      - LugininaV-my-netology-hw
+volumes:
+  prometheus-data:
+networks:
+  LugininaV-my-netology-hw:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.5.0.0/16
