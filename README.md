@@ -118,3 +118,65 @@ networks:
 
 ### Задание 5
 
+Создана конфигурация `docker-compose` для Grafana с именем контейнера `LugininaV-netology-grafana`. Добавлены тома для данных (`grafana-data`) и конфигурации (`custom.ini`), настроена переменная окружения для пути к конфигурации. В `custom.ini` указаны логин `LugininaV` и пароль `netology`. Обеспечен внешний доступ к порту `3000` через порт `80`.
+
+[auth]
+disable_login_form = false
+
+[auth.basic]
+enabled = true
+
+[auth.anonymous]
+enabled = false
+
+[security]
+admin_user = LugininaV
+admin_password = netology
+
+
+```yaml
+version: '3.8'
+services:
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: LugininaV-netology-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - prometheus-data:/prometheus
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - LugininaV-my-netology-hw
+  pushgateway:
+    image: prom/pushgateway:latest
+    container_name: LugininaV-netology-pushgateway
+    ports:
+      - "9091:9091"
+    networks:
+      - LugininaV-my-netology-hw
+  grafana:
+    image: grafana/grafana:latest
+    container_name: LugininaV-netology-grafana
+    ports:
+      - "80:3000"
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./custom.ini:/etc/grafana/grafana.ini
+    environment:
+      - GF_PATHS_CONFIG=/etc/grafana/grafana.ini
+    networks:
+      - LugininaV-my-netology-hw
+volumes:
+  prometheus-data:
+  grafana-data:
+networks:
+  LugininaV-my-netology-hw:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.5.0.0/16
+
+---
+
+### Задание 6
+
