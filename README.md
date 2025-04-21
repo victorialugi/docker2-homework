@@ -191,3 +191,6 @@ networks:
 ---
 
 ### Задание 8
+
+Остановлены и удалены все контейнеры одной командой: `docker container rm -f $(docker container ls -aq)`.
+
