@@ -56,6 +56,11 @@ scrape_configs:
     scrape_interval: 5s
     static_configs:
       - targets: ['localhost:9090']
+  - job_name: 'pushgateway'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['pushgateway:9091']
+
 
 ```yaml
 version: '3.8'
