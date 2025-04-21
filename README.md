@@ -125,6 +125,7 @@ networks:
 
 Создана конфигурация `docker-compose` для Grafana с именем контейнера `LugininaV-netology-grafana`. Добавлены тома для данных (`grafana-data`) и конфигурации (`custom.ini`), настроена переменная окружения для пути к конфигурации. В `custom.ini` указаны логин `LugininaV` и пароль `netology`. Обеспечен внешний доступ к порту `3000` через порт `80`.
 
+```ini
 [auth]
 disable_login_form = false
 
@@ -241,8 +242,9 @@ networks:
       config:
         - subnet: 10.5.0.0/16
 
-![victorialugi/docker2-homework/main](https://github.com/victorialugi/docker2-homework/blob/main/task7_docker_ps.png)
-![victorialugi/docker2-homework/main](https://github.com/victorialugi/docker2-homework/blob/main/task7_grafana.png)
+![Скриншот команды docker ps](task7_docker_ps.png)
+
+![Скриншот графика LugininaV](task7_grafana.png)
 
 ---
 
@@ -250,4 +252,4 @@ networks:
 
 Остановлены и удалены все контейнеры одной командой: `docker container rm -f $(docker container ls -aq)`.
 
-![victorialugi/docker2-homework/main](https://github.com/victorialugi/docker2-homework/blob/main/task8_containers_removed.png)
+![Скриншот удаления контейнеров](task8_containers_removed.png)
