@@ -242,9 +242,9 @@ networks:
       config:
         - subnet: 10.5.0.0/16
 
-![Скриншот команды docker ps](task7_docker_ps.png)
+![Скриншот команды docker ps](https://github.com/victorialugi/docker2-homework/blob/main/task7_docker_ps.png)
 
-![Скриншот графика LugininaV](task7_grafana.png)
+![Скриншот графика LugininaV](https://github.com/victorialugi/docker2-homework/blob/main/task7_grafana.png)
 
 ---
 
@@ -252,4 +252,4 @@ networks:
 
 Остановлены и удалены все контейнеры одной командой: `docker container rm -f $(docker container ls -aq)`.
 
-![Скриншот удаления контейнеров](task8_containers_removed.png)
+![Скриншот удаления контейнеров](https://github.com/victorialugi/docker2-homework/blob/main/task8_containers_removed.png)
