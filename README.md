@@ -180,3 +180,5 @@ networks:
 
 ### Задание 6
 
+Настроена поочередность запуска контейнеров: Pushgateway → Prometheus → Grafana. Добавлены режимы перезапуска `always` для всех контейнеров. Все контейнеры используют сеть `LugininaV-my-netology-hw`. Сценарий запущен в detached-режиме с помощью `docker compose up -d`.
+
