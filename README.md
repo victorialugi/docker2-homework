@@ -181,3 +181,13 @@ networks:
 ### Задание 6
 
 `Настроена поочередность запуска контейнеров: Pushgateway → Prometheus → Grafana. Добавлены режимы перезапуска `always` для всех контейнеров. Все контейнеры используют сеть `LugininaV-my-netology-hw`. Сценарий запущен в detached-режиме с помощью `docker compose up -d`.`
+
+---
+
+### Задание 7
+
+Выполнен запрос для помещения метрики `LugininaV` со значением 5 в Pushgateway. В Grafana выполнен вход с логином `LugininaV` и паролем `netology`. Создан Data Source Prometheus с URL `http://prometheus:9090`. Построен график на основе метрики `LugininaV`.
+
+---
+
+### Задание 8
