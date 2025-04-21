@@ -193,9 +193,61 @@ networks:
 
 Выполнен запрос для помещения метрики `LugininaV` со значением 5 в Pushgateway. В Grafana выполнен вход с логином `LugininaV` и паролем `netology`. Создан Data Source Prometheus с URL `http://prometheus:9090`. Построен график на основе метрики `LugininaV`.
 
+version: '3.8'
+services:
+  pushgateway:
+    image: prom/pushgateway:latest
+    container_name: LugininaV-netology-pushgateway
+    ports:
+      - "9091:9091"
+    restart: always
+    networks:
+      - LugininaV-my-netology-hw
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: LugininaV-netology-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - prometheus-data:/prometheus
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    restart: always
+    depends_on:
+      - pushgateway
+    networks:
+      - LugininaV-my-netology-hw
+  grafana:
+    image: grafana/grafana:latest
+    container_name: LugininaV-netology-grafana
+    ports:
+      - "80:3000"
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./custom.ini:/etc/grafana/grafana.ini
+    environment:
+      - GF_PATHS_CONFIG=/etc/grafana/grafana.ini
+    restart: always
+    depends_on:
+      - prometheus
+    networks:
+      - LugininaV-my-netology-hw
+volumes:
+  prometheus-data:
+  grafana-data:
+networks:
+  LugininaV-my-netology-hw:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.5.0.0/16
+
+![victorialugi/docker2-homework/main](https://github.com/victorialugi/docker2-homework/blob/main/task7_docker_ps.png)
+![victorialugi/docker2-homework/main](https://github.com/victorialugi/docker2-homework/blob/main/task7_grafana.png)
+
 ---
 
 ### Задание 8
 
 Остановлены и удалены все контейнеры одной командой: `docker container rm -f $(docker container ls -aq)`.
 
+![victorialugi/docker2-homework/main](https://github.com/victorialugi/docker2-homework/blob/main/task8_containers_removed.png)
