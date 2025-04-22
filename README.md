@@ -253,3 +253,75 @@ networks:
 Остановлены и удалены все контейнеры одной командой: `docker container rm -f $(docker container ls -aq)`.
 
 ![Скриншот удаления контейнеров](https://github.com/victorialugi/docker2-homework/blob/main/task8_containers_removed.png)
+
+---
+
+### Задание 9
+
+Создана конфигурация `docker-compose` для Alertmanager с именем контейнера `LugininaV-netology-alertmanager`. Настроены тома, сеть, режим перезапуска и очередность запуска. Обновлена конфигурация Prometheus для интеграции с Alertmanager, добавлены правила для генерации алерта. Для теста использовала `docker stop LugininaV-netology-prometheus`.
+
+![Скриншот работы Alertmanager](https://github.com/victorialugi/docker2-homework/blob/main/task9_alertmanager.png)
+
+```yaml
+version: '3.8'
+services:
+  pushgateway:
+    image: prom/pushgateway:latest
+    container_name: LugininaV-netology-pushgateway
+    ports:
+      - "9091:9091"
+    restart: always
+    networks:
+      - LugininaV-my-netology-hw
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: LugininaV-netology-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - prometheus-data:/prometheus
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./rules.yml:/etc/prometheus/rules.yml
+    restart: always
+    depends_on:
+      - pushgateway
+    networks:
+      - LugininaV-my-netology-hw
+  grafana:
+    image: grafana/grafana:latest
+    container_name: LugininaV-netology-grafana
+    ports:
+      - "80:3000"
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./custom.ini:/etc/grafana/grafana.ini
+    environment:
+      - GF_PATHS_CONFIG=/etc/grafana/grafana.ini
+    restart: always
+    depends_on:
+      - prometheus
+    networks:
+      - LugininaV-my-netology-hw
+  alertmanager:
+    image: prom/alertmanager:latest
+    container_name: LugininaV-netology-alertmanager
+    ports:
+      - "9093:9093"
+    volumes:
+      - alertmanager-data:/alertmanager
+      - ./alertmanager.yml:/etc/alertmanager/alertmanager.yml
+    restart: always
+    depends_on:
+      - prometheus
+    networks:
+      - LugininaV-my-netology-hw
+volumes:
+  prometheus-data:
+  grafana-data:
+  alertmanager-data:
+networks:
+  LugininaV-my-netology-hw:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.5.0.0/16
