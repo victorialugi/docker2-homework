@@ -61,7 +61,7 @@ scrape_configs:
     scrape_interval: 5s
     static_configs:
       - targets: ['pushgateway:9091']
-
+```
 
 ```yaml
 version: '3.8'
@@ -84,6 +84,7 @@ networks:
     ipam:
       config:
         - subnet: 10.5.0.0/16
+```
 
 ---
 
@@ -119,6 +120,7 @@ networks:
     ipam:
       config:
         - subnet: 10.5.0.0/16
+```
 
 ---
 
@@ -139,6 +141,7 @@ enabled = false
 [security]
 admin_user = LugininaV
 admin_password = netology
+```
 
 
 ```yaml
@@ -182,6 +185,7 @@ networks:
     ipam:
       config:
         - subnet: 10.5.0.0/16
+```
 
 ---
 
@@ -195,6 +199,7 @@ networks:
 
 Выполнен запрос для помещения метрики `LugininaV` со значением 5 в Pushgateway. В Grafana выполнен вход с логином `LugininaV` и паролем `netology`. Создан Data Source Prometheus с URL `http://prometheus:9090`. Построен график на основе метрики `LugininaV`.
 
+```yaml
 version: '3.8'
 services:
   pushgateway:
@@ -242,6 +247,7 @@ networks:
     ipam:
       config:
         - subnet: 10.5.0.0/16
+```
 
 ![Скриншот команды docker ps](https://github.com/victorialugi/docker2-homework/blob/main/task7_docker_ps.png)
 
@@ -326,3 +332,4 @@ networks:
     ipam:
       config:
         - subnet: 10.5.0.0/16
+```
